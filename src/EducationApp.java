@@ -5,12 +5,22 @@ public class EducationApp extends Student {
         super("null","null","null","null");
     }
     public static void main(String [] args){
-        ArrayList<String> mathEx = new ArrayList<>();
-        ArrayList<String> Answer = new ArrayList<>();
+        ArrayList<String> add = new ArrayList<>();
+        ArrayList<String> addAnswer = new ArrayList<>();
+        ArrayList<String> sub = new ArrayList<>();
+        ArrayList<String> subAnswer = new ArrayList<>();
+        ArrayList<String> multiplication = new ArrayList<>();
+        ArrayList<String> multAnswer = new ArrayList<>();
+        ArrayList<String> division = new ArrayList<>();
+        ArrayList<String> divAnswers = new ArrayList<>();
         ArrayList<Student> students = new ArrayList<>();
         Scanner uI = new Scanner(System.in);
         String level = "0";
         String fileNameStudents = "src\\Students.txt";
+        String fileNameAdd = "src\\Add.txt";
+        String fileNameDiv = "src\\Division.txt";
+        String fileNameMult = "src\\Multiplication.txt";
+        String fileNameSub = "src\\subtraction.txt";
         String username = "";
         String password = "";
         String name = "";
@@ -72,6 +82,9 @@ public class EducationApp extends Student {
                 System.out.println("Please enter your passowrd: ");
                 password = uI.nextLine();
                 for (int i = 0; i < students.size(); i++) {
+                    /*
+                     * This is the if statement that checks the valid username and password
+                     */
                     if(students.get(i).getUserName().equals(username) && students.get(i).getPassword().equals(password)){
                         System.out.println("Welcome back " + students.get(i).getName());
                         pass = true;
@@ -83,6 +96,55 @@ public class EducationApp extends Student {
         System.out.println("Would you like to do some math now? (yes or no)");
         yesNo = uI.nextLine();
         while(yesNo.equals("yes")){
+            int answerCount = 0;
+            int wrongAnswer = 0;
+            menu();
+            yesNo = uI.nextLine();
+            if (yesNo.equals("1")){
+                insertMathQuestions(add,addAnswer,fileNameAdd);
+                for(int i = 0; i < add.size(); i++){
+                    System.out.println(add.get(i));
+                    yesNo = uI.nextLine();
+                    if(yesNo.equals(addAnswer.get(i))){
+                        answerCount++;
+                    } else {
+                        wrongAnswer++;
+                    }
+                }
+            } else if(yesNo.equals("2")){
+                insertMathQuestions(sub,subAnswer,fileNameSub);
+                for(int i = 0; i < add.size(); i++){
+                    System.out.println(sub.get(i));
+                    yesNo = uI.nextLine();
+                    if(yesNo.equals(subAnswer.get(i))){
+                        answerCount++;
+                    } else {
+                        wrongAnswer++;
+                    }
+                }
+            } else if(yesNo.equals("3")){
+                insertMathQuestions(multiplication,multAnswer,fileNameMult);
+                for(int i = 0; i < add.size(); i++){
+                    System.out.println(multiplication.get(i));
+                    yesNo = uI.nextLine();
+                    if(yesNo.equals(multAnswer.get(i))){
+                        answerCount++;
+                    } else {
+                        wrongAnswer++;
+                    }
+                }
+            } else if(yesNo.equals("4")){
+                insertMathQuestions(division,divAnswers,fileNameDiv);
+                for(int i = 0; i < add.size(); i++){
+                    System.out.println(division.get(i));
+                    yesNo = uI.nextLine();
+                    if(yesNo.equals(divAnswers.get(i))){
+                        answerCount++;
+                    } else {
+                        wrongAnswer++;
+                    }
+                }
+            }
             /*
              * Pleas eneter the the code for the program here
              *
@@ -99,6 +161,7 @@ public class EducationApp extends Student {
              *
              *
              */
+
         }
 
 
@@ -106,7 +169,7 @@ public class EducationApp extends Student {
     public static void insertMathQuestions(ArrayList<String> mathEx, ArrayList<String> Answer, String filename) {
         try {
             /*
-             * Think of scanner of blank notepads
+             * Think of scanner as blank notepads
              */
             FileReader fr = new FileReader(filename);
             Scanner sC = new Scanner(fr);
@@ -187,5 +250,13 @@ public class EducationApp extends Student {
         }  catch (ArrayIndexOutOfBoundsException toofar){
             System.out.println("index out of bonunds");
         }
+    }
+    public static void menu(){
+        System.out.println("Please enter the number the number of the tyoe of math problem you want to practice ");
+        System.out.println("1. Addition");
+        System.out.println("2. subtraction");
+        System.out.println("3. Multiplication");
+        System.out.println("4. Division");
+
     }
 }
