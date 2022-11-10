@@ -7,13 +7,13 @@ public class EducationApp extends Student {
     }
 
     public static void main(String[] args) {
-        ArrayList<String> add = new ArrayList<>();
+        ArrayList<String> addQuestions = new ArrayList<>();
         ArrayList<String> addAnswer = new ArrayList<>();
-        ArrayList<String> sub = new ArrayList<>();
+        ArrayList<String> subQuestions = new ArrayList<>();
         ArrayList<String> subAnswer = new ArrayList<>();
-        ArrayList<String> multiplication = new ArrayList<>();
+        ArrayList<String> multQuestions = new ArrayList<>();
         ArrayList<String> multAnswer = new ArrayList<>();
-        ArrayList<String> division = new ArrayList<>();
+        ArrayList<String> divQuestions = new ArrayList<>();
         ArrayList<String> divAnswers = new ArrayList<>();
         ArrayList<Student> students = new ArrayList<>();
         Scanner uI = new Scanner(System.in);
@@ -35,7 +35,7 @@ public class EducationApp extends Student {
          * make sure to make a check to see if the user exist in the student array list
          */
         insertStudent(students, fileNameStudents);
-        System.out.println(students.get(0).getName());
+        //System.out.println(students.get(0).getName());
         System.out.println("Are you a new user?(yes or no)");
         yesNo = uI.nextLine();
         while (yesNo.equals("yes")) {
@@ -109,21 +109,33 @@ public class EducationApp extends Student {
             menu();
             yesNo = uI.nextLine();
             if (yesNo.equals("1")) {
-                insertMathQuestions(add, addAnswer, fileNameAdd);
+                insertMathQuestions(addQuestions, addAnswer, fileNameAdd);
                 /*
-                 * We should add a feature where it randomly give the user a index form the add array
+                 * We should add a feature where it randomly give the user a index form the add array(DONE)
                  * The timer works and such
-                 *
+                 * How the random works:
+                 * I stored the max size of the array in an int varable called max
+                 * then you just multiply it by Math.random()
                  */
                 mT.start();
                 System.out.println("You now have 1 min to answer math questions");
+                int max = addQuestions.size();
 
-                while (mT.check() && index < add.size()) {
-                    System.out.println(add.get(index));
+                while (mT.check() && index < addQuestions.size()) {
+                    /*
+                     * This loops through the addQuestion Array while the user still has time
+                     * the If statement does a check to see if there is time left
+                     *
+                     *
+                     * (need to add in the wrong and correct answer count into the
+                     * the student class)
+                     */
+                    int randNum = (int)(Math.random() * max);
+                    System.out.println(addQuestions.get(randNum));
                     if (mT.check()) {
                         yesNo = uI.nextLine();
                         index++;
-                        if (yesNo.equals(addAnswer.get(index))) {
+                        if (yesNo.equals(addAnswer.get(randNum))) {
                             answerCount++;
                         } else {
                             wrongAnswer++;
