@@ -1,1 +1,2 @@
-21jvarkey;password;0;josh
+21jvarkey;password;0;0;josh
+28bob;jasmine;0;0;bob

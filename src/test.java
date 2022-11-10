@@ -89,13 +89,15 @@ public class test {
                 sCT.useDelimiter(";"); // This is the same as .split()
                 String username = "";
                 String password = "";
-                String level = "";
+                String right = "";
+                String wrong = "";
                 String name = "";
                 username = sCT.next();
                 password = sCT.next();
-                level = sCT.next();
+                right = sCT.next();
+                wrong = sCT.next();
                 name = sCT.next();
-                Student obj = new Student(username, password, level, name);
+                Student obj = new Student(username, password, right, wrong, name);
                 students.add(obj);
                 /*
                  * This basically finds the next string in the line and insersts it into a String and makes
