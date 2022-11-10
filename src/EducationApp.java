@@ -1,10 +1,12 @@
 import java.util.*;
 import java.io.*;
+
 public class EducationApp extends Student {
-    public EducationApp(){
-        super("null","null","null","null");
+    public EducationApp() {
+        super("null", "null", "null", "null");
     }
-    public static void main(String [] args){
+
+    public static void main(String[] args) {
         ArrayList<String> add = new ArrayList<>();
         ArrayList<String> addAnswer = new ArrayList<>();
         ArrayList<String> sub = new ArrayList<>();
@@ -26,11 +28,13 @@ public class EducationApp extends Student {
         String name = "";
         String yesNo = "";
         int index = 0;
+        MyTimer mT = new MyTimer();
+        mT.set(10000);
         /*
          * You still have to make a loop that loops through to see if they hava an account
          * make sure to make a check to see if the user exist in the student array list
          */
-        insertStudent(students,fileNameStudents);
+        insertStudent(students, fileNameStudents);
         System.out.println(students.get(0).getName());
         System.out.println("Are you a new user?(yes or no)");
         yesNo = uI.nextLine();
@@ -70,13 +74,13 @@ public class EducationApp extends Student {
                 e.printStackTrace();
             }
         }
-        System.out.println(students.get(0).getName());
-        if(yesNo.equals("no")){
+        // System.out.println(students.get(0).getName());
+        if (yesNo.equals("no")) {
             /*
              * This if statment will loop through untill the user gives a vaild username and password
              */
             boolean pass = false;
-            while(pass) {
+            while (!pass) {
                 System.out.println("please enter your username: ");
                 username = uI.nextLine();
                 System.out.println("Please enter your passowrd: ");
@@ -85,9 +89,11 @@ public class EducationApp extends Student {
                     /*
                      * This is the if statement that checks the valid username and password
                      */
-                    if(students.get(i).getUserName().equals(username) && students.get(i).getPassword().equals(password)){
+                    if (students.get(i).getUserName().equals(username) && students.get(i).getPassword().equals(password)) {
                         System.out.println("Welcome back " + students.get(i).getName());
                         pass = true;
+                    } else {
+                        System.out.println("Your username is password was wrong");
                     }
                 }
             }
@@ -95,53 +101,33 @@ public class EducationApp extends Student {
         System.out.println();
         System.out.println("Would you like to do some math now? (yes or no)");
         yesNo = uI.nextLine();
-        while(yesNo.equals("yes")){
+        index = 0;
+        while (yesNo.equals("yes")) {
             int answerCount = 0;
             int wrongAnswer = 0;
+
             menu();
             yesNo = uI.nextLine();
-            if (yesNo.equals("1")){
-                insertMathQuestions(add,addAnswer,fileNameAdd);
-                for(int i = 0; i < add.size(); i++){
-                    System.out.println(add.get(i));
-                    yesNo = uI.nextLine();
-                    if(yesNo.equals(addAnswer.get(i))){
-                        answerCount++;
-                    } else {
-                        wrongAnswer++;
-                    }
-                }
-            } else if(yesNo.equals("2")){
-                insertMathQuestions(sub,subAnswer,fileNameSub);
-                for(int i = 0; i < add.size(); i++){
-                    System.out.println(sub.get(i));
-                    yesNo = uI.nextLine();
-                    if(yesNo.equals(subAnswer.get(i))){
-                        answerCount++;
-                    } else {
-                        wrongAnswer++;
-                    }
-                }
-            } else if(yesNo.equals("3")){
-                insertMathQuestions(multiplication,multAnswer,fileNameMult);
-                for(int i = 0; i < add.size(); i++){
-                    System.out.println(multiplication.get(i));
-                    yesNo = uI.nextLine();
-                    if(yesNo.equals(multAnswer.get(i))){
-                        answerCount++;
-                    } else {
-                        wrongAnswer++;
-                    }
-                }
-            } else if(yesNo.equals("4")){
-                insertMathQuestions(division,divAnswers,fileNameDiv);
-                for(int i = 0; i < add.size(); i++){
-                    System.out.println(division.get(i));
-                    yesNo = uI.nextLine();
-                    if(yesNo.equals(divAnswers.get(i))){
-                        answerCount++;
-                    } else {
-                        wrongAnswer++;
+            if (yesNo.equals("1")) {
+                insertMathQuestions(add, addAnswer, fileNameAdd);
+                /*
+                 * We should add a feature where it randomly give the user a index form the add array
+                 * The timer works and such
+                 *
+                 */
+                mT.start();
+                System.out.println("You now have 1 min to answer math questions");
+
+                while (mT.check() && index < add.size()) {
+                    System.out.println(add.get(index));
+                    if (mT.check()) {
+                        yesNo = uI.nextLine();
+                        index++;
+                        if (yesNo.equals(addAnswer.get(index))) {
+                            answerCount++;
+                        } else {
+                            wrongAnswer++;
+                        }
                     }
                 }
             }
@@ -163,9 +149,8 @@ public class EducationApp extends Student {
              */
 
         }
-
-
     }
+
     public static void insertMathQuestions(ArrayList<String> mathEx, ArrayList<String> Answer, String filename) {
         try {
             /*
@@ -176,7 +161,7 @@ public class EducationApp extends Student {
             /*
              * Makes blank notepad of txt file
              */
-            while(sC.hasNext()){
+            while (sC.hasNext()) {
                 /*
                  *Instead of using buffred reader it is easier to use scanners
                  * to insert into an ArrayList
@@ -190,21 +175,22 @@ public class EducationApp extends Student {
                  * sCT is a new blank notepad the holds txt String
                  */
                 sCT.useDelimiter(";"); // This is the same as .split()
-                String mathExpression ="";
+                String mathExpression = "";
                 String answer = "";
-                String rate = "";
+                //String rate = "";
                 mathExpression = sCT.next();
                 mathEx.add(mathExpression);
                 answer = sCT.next();
                 Answer.add(answer);
             }
-             sC.close();
-        } catch(FileNotFoundException badFile){
+            sC.close();
+        } catch (FileNotFoundException badFile) {
             System.out.println("Trouble finding file");
-        }  catch (ArrayIndexOutOfBoundsException toofar){
+        } catch (ArrayIndexOutOfBoundsException toofar) {
             System.out.println("index out of bonunds");
         }
     }
+
     public static void insertStudent(ArrayList<Student> students, String filename) {
         try {
             /*
@@ -215,7 +201,7 @@ public class EducationApp extends Student {
             /*
              * Makes blank notepad of txt file
              */
-            while(sC.hasNext()){
+            while (sC.hasNext()) {
                 /*
                  *Instead of using buffred reader it is easier to use scanners
                  * to insert into an ArrayList
@@ -229,7 +215,7 @@ public class EducationApp extends Student {
                  * sCT is a new blank notepad the holds txt String
                  */
                 sCT.useDelimiter(";"); // This is the same as .split()
-                String username ="";
+                String username = "";
                 String password = "";
                 String level = "";
                 String name = "";
@@ -237,7 +223,7 @@ public class EducationApp extends Student {
                 password = sCT.next();
                 level = sCT.next();
                 name = sCT.next();
-                Student obj = new Student(username,password,level,name);
+                Student obj = new Student(username, password, level, name);
                 students.add(obj);
                 /*
                  * This basically finds the next string in the line and insersts it into a String and makes
@@ -245,18 +231,60 @@ public class EducationApp extends Student {
                  */
             }
             sC.close();
-        } catch(FileNotFoundException badFile){
+        } catch (FileNotFoundException badFile) {
             System.out.println("Trouble finding file");
-        }  catch (ArrayIndexOutOfBoundsException toofar){
+        } catch (ArrayIndexOutOfBoundsException toofar) {
             System.out.println("index out of bonunds");
         }
     }
-    public static void menu(){
+
+    public static void menu() {
         System.out.println("Please enter the number the number of the tyoe of math problem you want to practice ");
         System.out.println("1. Addition");
         System.out.println("2. subtraction");
         System.out.println("3. Multiplication");
         System.out.println("4. Division");
+
+    }
+
+    public static boolean taken(String username, String password, ArrayList<Student> Student) {
+        /*
+         * This method will check to see if the new username is taken
+         */
+        for (int i = 0; i < Student.size(); i++) {
+            if (username.equals(Student.get(i))) {
+                System.out.println("Please enter a diffrent username");
+            }
+        }
+        return false;
+    }
+
+    public static void write(String fileName) {
+        String math = "";
+        int answer = 0;
+        /*
+         * This could work but it could also give us a index out of bounds erro
+         * I didnt complete it yet
+         * Made on 11/6/22
+         * This method is writing to a text file so I dont have too
+         *
+         */
+        try {
+            FileWriter myWriter = new FileWriter(fileName, true);
+            BufferedWriter bW = new BufferedWriter(myWriter);
+            for (int i = 1; i < 11; i++) {
+                answer = i + i + 1;
+                math = Integer.toString(i) + "+" + Integer.toString(i + 1) + ";" + Integer.toString(answer);
+                myWriter.write(math + System.getProperty("line.separator"));
+            }
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            /*
+             * printStackTrace pinpoints the error in the code
+             */
+            e.printStackTrace();
+        }
 
     }
 }
