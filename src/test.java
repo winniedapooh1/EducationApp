@@ -114,7 +114,7 @@ public class test {
     public static void menu() {
         System.out.println("Please enter the number the number of the tyoe of math problem you want to practice ");
         System.out.println("1. Addition");
-        System.out.println("2. subtraction");
+        System.out.println("2. Subtraction");
         System.out.println("3. Multiplication");
         System.out.println("4. Division");
 
@@ -158,4 +158,6 @@ public class test {
             System.out.println("index out of bonunds");
         }
     }
+
+
 }

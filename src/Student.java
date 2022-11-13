@@ -56,9 +56,5 @@ public class Student {
     public String getName() {
         return name;
     }
-    public String toString(){
-        String mesage = "This is you record of right answers: " + getRightAnswers() + "\n"
-                + "This is your record of wrong answers: " + getWrongAnswers();
-        return mesage;
-    }
+
 }
