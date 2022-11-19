@@ -1,42 +1,41 @@
 import java.util.*;
 import java.io.*;
- /*
-  ! Things to do tommorow is fix the student calss by adding the two
-  ! new instanc evarablies
-  !
-  */
-public class EducationApp extends Student {
-     public EducationApp() {
-         super("null", "null", "null", "null", "null");
-     }
 
-     public static void main(String[] args) {
-         ArrayList<String> addQuestions = new ArrayList<>();
-         ArrayList<String> addAnswer = new ArrayList<>();
-         ArrayList<String> subQuestions = new ArrayList<>();
-         ArrayList<String> subAnswer = new ArrayList<>();
-         ArrayList<String> multQuestions = new ArrayList<>();
-         ArrayList<String> multAnswer = new ArrayList<>();
-         ArrayList<String> divQuestions = new ArrayList<>();
-         ArrayList<String> divAnswers = new ArrayList<>();
-         ArrayList<Student> students = new ArrayList<>();
-         Scanner uI = new Scanner(System.in);
-         String rightAnswerCount = "0";
-         String wrongAnswerCount = "0";
-         String fileNameStudents = "src\\Students.txt";
-         String fileNameAdd = "src\\Add.txt";
-         String fileNameDiv = "src\\Division.txt";
-         String fileNameMult = "src\\Multiplication.txt";
-         String fileNameSub = "src\\subtraction.txt";
-         String username = "";
-         String password = "";
-         String name = "";
-         String yesNo = "";
-         int index = 0;
-         int indexofStudent = 0;
-         MyTimer mT = new MyTimer();
-         mT.set(10000);
-         test test = new test();
+/*
+ ! Go through the program and fix any bugs
+ ! Make a method for the file writing in the student file and from the many if statements
+ */
+public class EducationApp extends Student {
+    public EducationApp() {
+        super("null", "null", "null", "null", "null");
+    }
+
+    public static void main(String[] args) {
+        ArrayList<String> addQuestions = new ArrayList<>();
+        ArrayList<String> addAnswer = new ArrayList<>();
+        ArrayList<String> subQuestions = new ArrayList<>();
+        ArrayList<String> subAnswer = new ArrayList<>();
+        ArrayList<String> multQuestions = new ArrayList<>();
+        ArrayList<String> multAnswer = new ArrayList<>();
+        ArrayList<String> divQuestions = new ArrayList<>();
+        ArrayList<String> divAnswers = new ArrayList<>();
+        ArrayList<Student> students = new ArrayList<>();
+        Scanner uI = new Scanner(System.in);
+        String rightAnswerCount = "0";
+        String wrongAnswerCount = "0";
+        String fileNameStudents = "src\\Students.txt";
+        String fileNameAdd = "src\\Add.txt";
+        String fileNameDiv = "src\\Division.txt";
+        String fileNameMult = "src\\Multiplication.txt";
+        String fileNameSub = "src\\subtraction.txt";
+        String username = "";
+        String password = "";
+        String name = "";
+        String yesNo = "";
+        int indexofStudent = 0;
+        MyTimer mT = new MyTimer();
+        mT.set(10000);
+        test test = new test();
         /*
          ? You need to make a class that hold all of the methods that you use to make readablity better
          * Just made the test class that holds all the methods ^^^^^
@@ -46,82 +45,90 @@ public class EducationApp extends Student {
          ! You still have to make a loop that loops through to see if they hava an account
          ! make sure to make a check to see if the user exist in the student array list
          */
-         test.insertStudent(students, fileNameStudents);
-         System.out.println(students.get(1).getRightAnswers());
-         System.out.println("Are you a new user?(yes or no)");
-         yesNo = uI.nextLine();
-         while (yesNo.equals("yes")) {
+        test.insertStudent(students, fileNameStudents);
+        System.out.println(students.get(1).getRightAnswers());
+        System.out.println("Are you a new user?(yes or no)");
+        yesNo = uI.nextLine();
+        while (yesNo.equals("yes")) {
+            boolean result = false;
             /*
              ! make a method that checks is the username or password is already taken
              */
 
-             System.out.println("Please enter your new user name: ");
-             username = uI.nextLine();
-             System.out.println("Please enteryour new password: ");
-             password = uI.nextLine();
-             System.out.println("Please enter your name: ");
-             name = uI.nextLine();
-             Student obj = new Student(username, password, rightAnswerCount, wrongAnswerCount, name);
-             students.add(obj);
-             try {
-                 /*
-                  * This takes care of the problem of the Arraylist refreshing
-                  */
-                 FileWriter myWriter = new FileWriter(fileNameStudents, true);
-                 BufferedWriter bW = new BufferedWriter(myWriter);
-                 String studentLine = username + ";" + password + ";" + rightAnswerCount + ";" + wrongAnswerCount + ";" + name;
-                 /*
-                  * "Line.separator" makes the writer print to next line .
-                  */
-                 myWriter.write(studentLine + System.getProperty("line.separator"));
-                 index++;
+            System.out.println("Please enter your new user name: ");
+            username = uI.nextLine();
+            while(result = test.userNameAvailable(students,username)){
+                System.out.println("Please enter your new user name: ");
+                username = uI.nextLine();
+                result = test.userNameAvailable(students,username);
+            }
+            System.out.println("Please enteryour new password: ");
+            password = uI.nextLine();
+            System.out.println("Please enter your name: ");
+            name = uI.nextLine();
+            Student obj = new Student(username, password, rightAnswerCount, wrongAnswerCount, name);
+            students.add(obj);
+            try {
+                /*
+                 * This takes care of the problem of the Arraylist refreshing
+                 */
+                FileWriter myWriter = new FileWriter(fileNameStudents, true);
+                BufferedWriter bW = new BufferedWriter(myWriter);
+                String studentLine = username + ";" + password + ";" + rightAnswerCount + ";" + wrongAnswerCount + ";" + name;
+                /*
+                 * "Line.separator" makes the writer print to next line .
+                 */
+                myWriter.write(studentLine + System.getProperty("line.separator"));
 
-                 myWriter.close();
-             } catch (IOException e) {
-                 System.out.println("An error occurred.");
-                 /*
-                  * printStackTrace pinpoints the error in the code
-                  */
-                 e.printStackTrace();
-             }
-             System.out.println("Please enter No");
-             yesNo = uI.nextLine();
-         }
-         // System.out.println(students.get(0).getName());
-         if (yesNo.equals("no")) {
-             /*
-              * This if statment will loop through untill the user gives a vaild username and password
-              */
-             boolean pass = false;
-             while (!pass) {
-                 System.out.println("please enter your username: ");
-                 username = uI.nextLine();
-                 System.out.println("Please enter your passowrd: ");
-                 password = uI.nextLine();
-                 for (int i = 0; i < students.size(); i++) {
-                     /*
-                      * This is the if statement that checks the valid username and password
-                      */
-                     if (students.get(i).getUserName().equals(username) && students.get(i).getPassword().equals(password)) {
-                         System.out.println("Welcome back " + students.get(i).getName());
-                         indexofStudent = i;
-                         pass = true;
-                     }
-                 }
-             }
-         }
-         System.out.println();
-         System.out.println("Would you like to do some math now? (yes or no)");
-         yesNo = uI.nextLine();
-         index = 0;
-         while (yesNo.equals("yes")) {
-             int answerCount = 0;
-             int wrongAnswer = 0;
+                myWriter.close();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                /*
+                 * printStackTrace pinpoints the error in the code
+                 */
+                e.printStackTrace();
+            }
+            System.out.println("Please enter No");
+            yesNo = uI.nextLine();
+        }
+        // System.out.println(students.get(0).getName());
+        if (yesNo.equals("no")) {
+            /*
+             * This if statment will loop through untill the user gives a vaild username and password
+             */
+            boolean pass = false;
+            while (!pass) {
+                System.out.println("please enter your username: ");
+                username = uI.nextLine();
+                System.out.println("Please enter your passowrd: ");
+                password = uI.nextLine();
+                for (int i = 0; i < students.size(); i++) {
+                    /*
+                     * This is the if statement that checks the valid username and password
+                     */
+                    if (students.get(i).getUserName().equals(username) && students.get(i).getPassword().equals(password)) {
+                        System.out.println("Welcome back " + students.get(i).getName());
+                        /*
+                         * this gives us the index of the student that is loged in
+                         * and we can use this to call other methods that require the student index.
+                         */
+                        indexofStudent = i;
+                        pass = true;
+                    }
+                }
+            }
+        }
+        System.out.println();
+        System.out.println("Would you like to do some math now? (yes or no)");
+        yesNo = uI.nextLine();
+        while (yesNo.equals("yes")) {
+            int answerCount = 0;
+            int wrongAnswer = 0;
 
-             test.menu();
-             yesNo = uI.nextLine();
-             if (yesNo.equals("1")) {
-                 test.insertMathQuestions(addQuestions, addAnswer, fileNameAdd);
+            test.menu();
+            yesNo = uI.nextLine();
+            if (yesNo.equals("1")) {
+                test.insertMathQuestions(addQuestions, addAnswer, fileNameAdd);
                 /*
                  ? We should add a feature where it randomly give the user a index form the add array(DONE)
                  *
@@ -131,11 +138,11 @@ public class EducationApp extends Student {
                  * I stored the max size of the array in an int varable called max
                  * then you just multiply it by Math.random()
                  */
-                 mT.start();
-                 System.out.println("You now have 1 min to answer math questions");
-                 int max = addQuestions.size();
+                mT.start();
+                System.out.println("You now have 1 min to answer math questions");
+                int max = addQuestions.size();
 
-                 while (mT.check()) {
+                while (mT.check()) {
                     /*
                      * This loops through the addQuestion Array while the user still has time
                      * the If statement does a check to see if there is time left
@@ -144,53 +151,47 @@ public class EducationApp extends Student {
                      ? (need to add in the wrong and correct answer count into the
                      ? the student class)
                      */
-                     int randNum = (int) (Math.random() * max);
-                     System.out.println(addQuestions.get(randNum));
-                     if (mT.check()) {
-                         yesNo = uI.nextLine();
-                         if (yesNo.equals(addAnswer.get(randNum))) {
-                             answerCount++;
-                         } else {
-                             wrongAnswer++;
-                         }
-                     }
-                 }
-                 rightAnswerCount = Integer.toString(answerCount);
-                 wrongAnswerCount = Integer.toString(wrongAnswer);
-                 String usernameX = "";
-                 String passwordX = "";
-                 String right = "";
-                 String wrong = "";
-                 String nameX = "";
-                 students.get(indexofStudent).setRightAnswers(rightAnswerCount);
-                 students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
-                 System.out.println(students.get(indexofStudent).getRightAnswers());
-                 try {
-                     /*
-                      * This writes into the Students.txt file and updates the right and wrong numbers
-                      * at the entire txt file
-                      */
-                     FileWriter myWriter = new FileWriter(fileNameStudents);
-                     BufferedWriter bW = new BufferedWriter(myWriter);
-                     for(int i = 0; i < students.size(); i++) {
-                         String studentLine = students.get(i).getUserName() + ";" + students.get(i).getPassword() + ";" + students.get(i).getRightAnswers() +
-                                 ";" + students.get(i).getWrongAnswers() + ";" + students.get(i).getName();
-                         /*
-                          * "Line.separator" makes the writer print to next line .
-                          */
-                         myWriter.write(studentLine + System.getProperty("line.separator"));
+                    int randNum = (int) (Math.random() * max);
+                    System.out.println(addQuestions.get(randNum));
+                    if (mT.check()) {
+                        yesNo = uI.nextLine();
+                        if (yesNo.equals(addAnswer.get(randNum))) {
+                            answerCount++;
+                        } else {
+                            wrongAnswer++;
+                        }
+                    }
+                }
+                rightAnswerCount = Integer.toString(answerCount);
+                wrongAnswerCount = Integer.toString(wrongAnswer);
+                students.get(indexofStudent).setRightAnswers(rightAnswerCount);
+                students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
+                try {
+                    /*
+                     * This writes into the Students.txt file and updates the right and wrong numbers
+                     * at the entire txt file
+                     */
+                    FileWriter myWriter = new FileWriter(fileNameStudents);
+                    BufferedWriter bW = new BufferedWriter(myWriter);
+                    for (int i = 0; i < students.size(); i++) {
+                        String studentLine = students.get(i).getUserName() + ";" + students.get(i).getPassword() + ";" + students.get(i).getRightAnswers() +
+                                ";" + students.get(i).getWrongAnswers() + ";" + students.get(i).getName();
+                        /*
+                         * "Line.separator" makes the writer print to next line .
+                         */
+                        myWriter.write(studentLine + System.getProperty("line.separator"));
 
-                     }
-                     myWriter.close();
-                 } catch (IOException e) {
-                     System.out.println("An error occurred.");
-                     /*
-                      * printStackTrace pinpoints the error in the code
-                      */
-                     e.printStackTrace();
-                 }
-             } else if (yesNo.equals("2")) {
-                 test.insertMathQuestions(subQuestions, subAnswer, fileNameSub);
+                    }
+                    myWriter.close();
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    /*
+                     * printStackTrace pinpoints the error in the code
+                     */
+                    e.printStackTrace();
+                }
+            } else if (yesNo.equals("2")) {
+                test.insertMathQuestions(subQuestions, subAnswer, fileNameSub);
                 /*
                  ? We should add a feature where it randomly give the user a index form the add array(DONE)
                  *
@@ -200,11 +201,11 @@ public class EducationApp extends Student {
                  * I stored the max size of the array in an int varable called max
                  * then you just multiply it by Math.random()
                  */
-                 mT.start();
-                 System.out.println("You now have 1 min to answer math questions");
-                 int max = addQuestions.size();
+                mT.start();
+                System.out.println("You now have 1 min to answer math questions");
+                int max = addQuestions.size();
 
-                 while (mT.check()) {
+                while (mT.check()) {
                     /*
                      * This loops through the addQuestion Array while the user still has time
                      * the If statement does a check to see if there is time left
@@ -213,53 +214,53 @@ public class EducationApp extends Student {
                      ? (need to add in the wrong and correct answer count into the
                      ? the student class)
                      */
-                     int randNum = (int) (Math.random() * max);
-                     System.out.println(addQuestions.get(randNum));
-                     if (mT.check()) {
-                         yesNo = uI.nextLine();
-                         if (yesNo.equals(addAnswer.get(randNum))) {
-                             answerCount++;
-                         } else {
-                             wrongAnswer++;
-                         }
-                     }
-                 }
-                 rightAnswerCount = Integer.toString(answerCount);
-                 wrongAnswerCount = Integer.toString(wrongAnswer);
-                 String usernameX = "";
-                 String passwordX = "";
-                 String right = "";
-                 String wrong = "";
-                 String nameX = "";
-                 students.get(indexofStudent).setRightAnswers(rightAnswerCount);
-                 students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
-                 System.out.println(students.get(indexofStudent).getRightAnswers());
-                 try {
-                     /*
-                      * This writes into the Students.txt file and updates the right and wrong numbers
-                      * at the entire txt file
-                      */
-                     FileWriter myWriter = new FileWriter(fileNameStudents);
-                     BufferedWriter bW = new BufferedWriter(myWriter);
-                     for(int i = 0; i < students.size(); i++) {
-                         String studentLine = students.get(i).getUserName() + ";" + students.get(i).getPassword() + ";" + students.get(i).getRightAnswers() +
-                                 ";" + students.get(i).getWrongAnswers() + ";" + students.get(i).getName();
-                         /*
-                          * "Line.separator" makes the writer print to next line .
-                          */
-                         myWriter.write(studentLine + System.getProperty("line.separator"));
+                    int randNum = (int) (Math.random() * max);
+                    System.out.println(addQuestions.get(randNum));
+                    if (mT.check()) {
+                        yesNo = uI.nextLine();
+                        if (yesNo.equals(addAnswer.get(randNum))) {
+                            answerCount++;
+                        } else {
+                            wrongAnswer++;
+                        }
+                    }
+                }
+                rightAnswerCount = Integer.toString(answerCount);
+                wrongAnswerCount = Integer.toString(wrongAnswer);
+                String usernameX = "";
+                String passwordX = "";
+                String right = "";
+                String wrong = "";
+                String nameX = "";
+                students.get(indexofStudent).setRightAnswers(rightAnswerCount);
+                students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
+                System.out.println(students.get(indexofStudent).getRightAnswers());
+                try {
+                    /*
+                     * This writes into the Students.txt file and updates the right and wrong numbers
+                     * at the entire txt file
+                     */
+                    FileWriter myWriter = new FileWriter(fileNameStudents);
+                    BufferedWriter bW = new BufferedWriter(myWriter);
+                    for (int i = 0; i < students.size(); i++) {
+                        String studentLine = students.get(i).getUserName() + ";" + students.get(i).getPassword() + ";" + students.get(i).getRightAnswers() +
+                                ";" + students.get(i).getWrongAnswers() + ";" + students.get(i).getName();
+                        /*
+                         * "Line.separator" makes the writer print to next line .
+                         */
+                        myWriter.write(studentLine + System.getProperty("line.separator"));
 
-                     }
-                     myWriter.close();
-                 } catch (IOException e) {
-                     System.out.println("An error occurred.");
-                     /*
-                      * printStackTrace pinpoints the error in the code
-                      */
-                     e.printStackTrace();
-                 }
-             } else if (yesNo.equals("3")) {
-                 test.insertMathQuestions(multQuestions, multAnswer, fileNameMult);
+                    }
+                    myWriter.close();
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    /*
+                     * printStackTrace pinpoints the error in the code
+                     */
+                    e.printStackTrace();
+                }
+            } else if (yesNo.equals("3")) {
+                test.insertMathQuestions(multQuestions, multAnswer, fileNameMult);
                 /*
                  ? We should add a feature where it randomly give the user a index form the add array(DONE)
                  *
@@ -269,11 +270,11 @@ public class EducationApp extends Student {
                  * I stored the max size of the array in an int varable called max
                  * then you just multiply it by Math.random()
                  */
-                 mT.start();
-                 System.out.println("You now have 1 min to answer math questions");
-                 int max = addQuestions.size();
+                mT.start();
+                System.out.println("You now have 1 min to answer math questions");
+                int max = addQuestions.size();
 
-                 while (mT.check()) {
+                while (mT.check()) {
                     /*
                      * This loops through the addQuestion Array while the user still has time
                      * the If statement does a check to see if there is time left
@@ -282,53 +283,53 @@ public class EducationApp extends Student {
                      ? (need to add in the wrong and correct answer count into the
                      ? the student class)
                      */
-                     int randNum = (int) (Math.random() * max);
-                     System.out.println(addQuestions.get(randNum));
-                     if (mT.check()) {
-                         yesNo = uI.nextLine();
-                         if (yesNo.equals(addAnswer.get(randNum))) {
-                             answerCount++;
-                         } else {
-                             wrongAnswer++;
-                         }
-                     }
-                 }
-                 rightAnswerCount = Integer.toString(answerCount);
-                 wrongAnswerCount = Integer.toString(wrongAnswer);
-                 String usernameX = "";
-                 String passwordX = "";
-                 String right = "";
-                 String wrong = "";
-                 String nameX = "";
-                 students.get(indexofStudent).setRightAnswers(rightAnswerCount);
-                 students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
-                 System.out.println(students.get(indexofStudent).getRightAnswers());
-                 try {
-                     /*
-                      * This writes into the Students.txt file and updates the right and wrong numbers
-                      * at the entire txt file
-                      */
-                     FileWriter myWriter = new FileWriter(fileNameStudents);
-                     BufferedWriter bW = new BufferedWriter(myWriter);
-                     for(int i = 0; i < students.size(); i++) {
-                         String studentLine = students.get(i).getUserName() + ";" + students.get(i).getPassword() + ";" + students.get(i).getRightAnswers() +
-                                 ";" + students.get(i).getWrongAnswers() + ";" + students.get(i).getName();
-                         /*
-                          * "Line.separator" makes the writer print to next line .
-                          */
-                         myWriter.write(studentLine + System.getProperty("line.separator"));
+                    int randNum = (int) (Math.random() * max);
+                    System.out.println(addQuestions.get(randNum));
+                    if (mT.check()) {
+                        yesNo = uI.nextLine();
+                        if (yesNo.equals(addAnswer.get(randNum))) {
+                            answerCount++;
+                        } else {
+                            wrongAnswer++;
+                        }
+                    }
+                }
+                rightAnswerCount = Integer.toString(answerCount);
+                wrongAnswerCount = Integer.toString(wrongAnswer);
+                String usernameX = "";
+                String passwordX = "";
+                String right = "";
+                String wrong = "";
+                String nameX = "";
+                students.get(indexofStudent).setRightAnswers(rightAnswerCount);
+                students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
+                System.out.println(students.get(indexofStudent).getRightAnswers());
+                try {
+                    /*
+                     * This writes into the Students.txt file and updates the right and wrong numbers
+                     * at the entire txt file
+                     */
+                    FileWriter myWriter = new FileWriter(fileNameStudents);
+                    BufferedWriter bW = new BufferedWriter(myWriter);
+                    for (int i = 0; i < students.size(); i++) {
+                        String studentLine = students.get(i).getUserName() + ";" + students.get(i).getPassword() + ";" + students.get(i).getRightAnswers() +
+                                ";" + students.get(i).getWrongAnswers() + ";" + students.get(i).getName();
+                        /*
+                         * "Line.separator" makes the writer print to next line .
+                         */
+                        myWriter.write(studentLine + System.getProperty("line.separator"));
 
-                     }
-                     myWriter.close();
-                 } catch (IOException e) {
-                     System.out.println("An error occurred.");
-                     /*
-                      * printStackTrace pinpoints the error in the code
-                      */
-                     e.printStackTrace();
-                 }
-             } else if (yesNo.equals("4")) {
-                 test.insertMathQuestions(divQuestions, divAnswers, fileNameDiv);
+                    }
+                    myWriter.close();
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    /*
+                     * printStackTrace pinpoints the error in the code
+                     */
+                    e.printStackTrace();
+                }
+            } else if (yesNo.equals("4")) {
+                test.insertMathQuestions(divQuestions, divAnswers, fileNameDiv);
                 /*
                  ? We should add a feature where it randomly give the user a index form the add array(DONE)
                  *
@@ -338,11 +339,11 @@ public class EducationApp extends Student {
                  * I stored the max size of the array in an int varable called max
                  * then you just multiply it by Math.random()
                  */
-                 mT.start();
-                 System.out.println("You now have 1 min to answer math questions");
-                 int max = addQuestions.size();
+                mT.start();
+                System.out.println("You now have 1 min to answer math questions");
+                int max = addQuestions.size();
 
-                 while (mT.check()) {
+                while (mT.check()) {
                     /*
                      * This loops through the addQuestion Array while the user still has time
                      * the If statement does a check to see if there is time left
@@ -351,52 +352,55 @@ public class EducationApp extends Student {
                      ? (need to add in the wrong and correct answer count into the
                      ? the student class)
                      */
-                     int randNum = (int) (Math.random() * max);
-                     System.out.println(addQuestions.get(randNum));
-                     if (mT.check()) {
-                         yesNo = uI.nextLine();
-                         if (yesNo.equals(addAnswer.get(randNum))) {
-                             answerCount++;
-                         } else {
-                             wrongAnswer++;
-                         }
-                     }
-                 }
-                 rightAnswerCount = Integer.toString(answerCount);
-                 wrongAnswerCount = Integer.toString(wrongAnswer);
-                 String usernameX = "";
-                 String passwordX = "";
-                 String right = "";
-                 String wrong = "";
-                 String nameX = "";
-                 students.get(indexofStudent).setRightAnswers(rightAnswerCount);
-                 students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
-                 System.out.println(students.get(indexofStudent).getRightAnswers());
-                 try {
-                     /*
-                      * This writes into the Students.txt file and updates the right and wrong numbers
-                      * at the entire txt file
-                      */
-                     FileWriter myWriter = new FileWriter(fileNameStudents);
-                     BufferedWriter bW = new BufferedWriter(myWriter);
-                     for(int i = 0; i < students.size(); i++) {
-                         String studentLine = students.get(i).getUserName() + ";" + students.get(i).getPassword() + ";" + students.get(i).getRightAnswers() +
-                                 ";" + students.get(i).getWrongAnswers() + ";" + students.get(i).getName();
-                         /*
-                          * "Line.separator" makes the writer print to next line .
-                          */
-                         myWriter.write(studentLine + System.getProperty("line.separator"));
+                    int randNum = (int) (Math.random() * max);
+                    System.out.println(addQuestions.get(randNum));
+                    if (mT.check()) {
+                        yesNo = uI.nextLine();
+                        if (yesNo.equals(addAnswer.get(randNum))) {
+                            answerCount++;
+                        } else {
+                            wrongAnswer++;
+                        }
+                    }
+                }
+                rightAnswerCount = Integer.toString(answerCount);
+                wrongAnswerCount = Integer.toString(wrongAnswer);
+                String usernameX = "";
+                String passwordX = "";
+                String right = "";
+                String wrong = "";
+                String nameX = "";
+                students.get(indexofStudent).setRightAnswers(rightAnswerCount);
+                students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
+                System.out.println(students.get(indexofStudent).getRightAnswers());
+                /*
+                 ! You need to add a print statement that updates the user on there score and and such
+                 */
+                try {
+                    /*
+                     * This writes into the Students.txt file and updates the right and wrong numbers
+                     * at the entire txt file
+                     */
+                    FileWriter myWriter = new FileWriter(fileNameStudents);
+                    BufferedWriter bW = new BufferedWriter(myWriter);
+                    for (int i = 0; i < students.size(); i++) {
+                        String studentLine = students.get(i).getUserName() + ";" + students.get(i).getPassword() + ";" + students.get(i).getRightAnswers() +
+                                ";" + students.get(i).getWrongAnswers() + ";" + students.get(i).getName();
+                        /*
+                         * "Line.separator" makes the writer print to next line .
+                         */
+                        myWriter.write(studentLine + System.getProperty("line.separator"));
 
-                     }
-                     myWriter.close();
-                 } catch (IOException e) {
-                     System.out.println("An error occurred.");
-                     /*
-                      * printStackTrace pinpoints the error in the code
-                      */
-                     e.printStackTrace();
-                 }
-             }
+                    }
+                    myWriter.close();
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    /*
+                     * printStackTrace pinpoints the error in the code
+                     */
+                    e.printStackTrace();
+                }
+            }
             /*
              * Pleas eneter the the code for the program here
              *
@@ -413,7 +417,9 @@ public class EducationApp extends Student {
              *
              *
              */
+            System.out.println("Would you like to do some math now? (yes or no)");
+            yesNo = uI.nextLine();
 
-             } // * End of While loop
-         }
-     }
+        } // * End of While loop
+    }
+}

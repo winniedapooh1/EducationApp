@@ -158,6 +158,16 @@ public class test {
             System.out.println("index out of bonunds");
         }
     }
-
-
+    public static boolean userNameAvailable(ArrayList<Student> students, String input){
+        /*
+         * This method goes throught the students list and comapre the already taken usernames with the new given
+         * Username to make sure their aren't any repats
+         */
+        for(int i = 0; i < students.size(); i++) {
+            if (input.equals(students.get(i).getUserName())){
+                return true;
+            }
+        }
+        return false;
+    }
 }
