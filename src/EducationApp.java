@@ -127,6 +127,9 @@ public class EducationApp extends Student {
 
             test.menu();
             yesNo = uI.nextLine();
+            /*
+             ! You need a print statement that prints the users socre
+             */
             if (yesNo.equals("1")) {
                 test.insertMathQuestions(addQuestions, addAnswer, fileNameAdd);
                 /*
@@ -162,10 +165,16 @@ public class EducationApp extends Student {
                         }
                     }
                 }
-                rightAnswerCount = Integer.toString(answerCount);
-                wrongAnswerCount = Integer.toString(wrongAnswer);
+                int oldRightcount = Integer.parseInt(students.get(indexofStudent).getRightAnswers());
+                int oldWrongcount = Integer.parseInt(students.get(indexofStudent).getWrongAnswers());
+                rightAnswerCount = Integer.toString(answerCount + oldRightcount);
+                wrongAnswerCount = Integer.toString(wrongAnswer + oldWrongcount);
                 students.get(indexofStudent).setRightAnswers(rightAnswerCount);
                 students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
+                /*
+                 ? The updating gets rid of the old porgess in the txt file
+                 ? You need to make a vaable to hold the old value in the txt file and then add the new value to it then set the new value
+                 */
                 try {
                     /*
                      * This writes into the Students.txt file and updates the right and wrong numbers
@@ -190,51 +199,32 @@ public class EducationApp extends Student {
                      */
                     e.printStackTrace();
                 }
+                System.out.println("This the the total right answers: " + students.get(indexofStudent).getRightAnswers());
+                System.out.println("This the the total wrong answers: " + students.get(indexofStudent).getWrongAnswers());
             } else if (yesNo.equals("2")) {
                 test.insertMathQuestions(subQuestions, subAnswer, fileNameSub);
-                /*
-                 ? We should add a feature where it randomly give the user a index form the add array(DONE)
-                 *
-                 * The timer works and such
-                 * How the random works:
-                 *
-                 * I stored the max size of the array in an int varable called max
-                 * then you just multiply it by Math.random()
-                 */
                 mT.start();
                 System.out.println("You now have 1 min to answer math questions");
-                int max = addQuestions.size();
+                int max = subQuestions.size();
 
                 while (mT.check()) {
-                    /*
-                     * This loops through the addQuestion Array while the user still has time
-                     * the If statement does a check to see if there is time left
-                     *
-                     *
-                     ? (need to add in the wrong and correct answer count into the
-                     ? the student class)
-                     */
                     int randNum = (int) (Math.random() * max);
-                    System.out.println(addQuestions.get(randNum));
+                    System.out.println(subQuestions.get(randNum));
                     if (mT.check()) {
                         yesNo = uI.nextLine();
-                        if (yesNo.equals(addAnswer.get(randNum))) {
+                        if (yesNo.equals(subAnswer.get(randNum))) {
                             answerCount++;
                         } else {
                             wrongAnswer++;
                         }
                     }
                 }
-                rightAnswerCount = Integer.toString(answerCount);
-                wrongAnswerCount = Integer.toString(wrongAnswer);
-                String usernameX = "";
-                String passwordX = "";
-                String right = "";
-                String wrong = "";
-                String nameX = "";
+                int oldRightcount = Integer.parseInt(students.get(indexofStudent).getRightAnswers());
+                int oldWrongcount = Integer.parseInt(students.get(indexofStudent).getWrongAnswers());
+                rightAnswerCount = Integer.toString(answerCount + oldRightcount);
+                wrongAnswerCount = Integer.toString(wrongAnswer + oldWrongcount);
                 students.get(indexofStudent).setRightAnswers(rightAnswerCount);
                 students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
-                System.out.println(students.get(indexofStudent).getRightAnswers());
                 try {
                     /*
                      * This writes into the Students.txt file and updates the right and wrong numbers
@@ -259,6 +249,8 @@ public class EducationApp extends Student {
                      */
                     e.printStackTrace();
                 }
+                System.out.println("This the the total right answers: " + students.get(indexofStudent).getRightAnswers());
+                System.out.println("This the the total wrong answers: " + students.get(indexofStudent).getWrongAnswers());
             } else if (yesNo.equals("3")) {
                 test.insertMathQuestions(multQuestions, multAnswer, fileNameMult);
                 /*
