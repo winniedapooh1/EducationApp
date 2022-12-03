@@ -3,7 +3,7 @@ import java.io.*;
 
 /*
  ! Go through the program and fix any bugs
- ! Make a method for the file writing in the student file and from the many if statements
+
  */
 public class EducationApp extends Student {
     public EducationApp() {
@@ -52,7 +52,7 @@ public class EducationApp extends Student {
         while (yesNo.equals("yes")) {
             boolean result = false;
             /*
-             ! make a method that checks is the username or password is already taken
+             ? make a method that checks is the username or password is already taken
              */
 
             System.out.println("Please enter your new user name: ");
@@ -128,7 +128,7 @@ public class EducationApp extends Student {
             test.menu();
             yesNo = uI.nextLine();
             /*
-             ! You need a print statement that prints the users socre
+             ? You need a print statement that prints the users socre
              */
             if (yesNo.equals("1")) {
                 test.insertMathQuestions(addQuestions, addAnswer, fileNameAdd);
@@ -366,7 +366,7 @@ public class EducationApp extends Student {
                 students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
                 System.out.println(students.get(indexofStudent).getRightAnswers());
                 /*
-                 ! You need to add a print statement that updates the user on there score and and such
+                 ? You need to add a print statement that updates the user on there score and and such
                  */
                 try {
                     /*
@@ -402,8 +402,8 @@ public class EducationApp extends Student {
              *
              ? create  method that checks of a answer is correct or not
              ? create variable that hold the ammount of correct answers
-             !    * you might need to cereate a new private varble in Student
-             !    * maybe one for each txt file or something
+             ?    * you might need to cereate a new private varble in Student
+             ?    * maybe one for each txt file or something
              *    *
              *
              *

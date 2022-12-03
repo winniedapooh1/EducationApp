@@ -44,19 +44,7 @@ public class test {
          * This method will check to see if the new username is taken
          */
         for (int i = 0; i < Student.size(); i++) {
-            if (username.equals(Student.get(i))) {
-                System.out.println("Please enter a diffrent username");
-                return true;
-            }
-        }
-        return false;
-    }
-    public static boolean takenPassword(String password, ArrayList<Student> Student) {
-        /*
-         * This method will check to see if the new username is taken
-         */
-        for (int i = 0; i < Student.size(); i++) {
-            if (password.equals(Student.get(i))) {
+            if (username.equals(Student.get(i).getUserName())) {
                 System.out.println("Please enter a diffrent username");
                 return true;
             }
