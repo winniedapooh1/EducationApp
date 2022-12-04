@@ -199,6 +199,9 @@ public class EducationApp extends Student {
                      */
                     e.printStackTrace();
                 }
+                System.out.println("This is the total number of correct anser you got this round: " + answerCount);
+                System.out.println("This is the total number of worng answer you got this round: " + wrongAnswer);
+                System.out.println();
                 System.out.println("This the the total right answers: " + students.get(indexofStudent).getRightAnswers());
                 System.out.println("This the the total wrong answers: " + students.get(indexofStudent).getWrongAnswers());
             } else if (yesNo.equals("2")) {
@@ -249,6 +252,9 @@ public class EducationApp extends Student {
                      */
                     e.printStackTrace();
                 }
+                System.out.println("This is the total number of correct anser you got this round: " + answerCount);
+                System.out.println("This is the total number of worng answer you got this round: " + wrongAnswer);
+                System.out.println();
                 System.out.println("This the the total right answers: " + students.get(indexofStudent).getRightAnswers());
                 System.out.println("This the the total wrong answers: " + students.get(indexofStudent).getWrongAnswers());
             } else if (yesNo.equals("3")) {
@@ -264,7 +270,7 @@ public class EducationApp extends Student {
                  */
                 mT.start();
                 System.out.println("You now have 1 min to answer math questions");
-                int max = addQuestions.size();
+                int max = multQuestions.size();
 
                 while (mT.check()) {
                     /*
@@ -276,10 +282,10 @@ public class EducationApp extends Student {
                      ? the student class)
                      */
                     int randNum = (int) (Math.random() * max);
-                    System.out.println(addQuestions.get(randNum));
+                    System.out.println(multQuestions.get(randNum));
                     if (mT.check()) {
                         yesNo = uI.nextLine();
-                        if (yesNo.equals(addAnswer.get(randNum))) {
+                        if (yesNo.equals(multAnswer.get(randNum))) {
                             answerCount++;
                         } else {
                             wrongAnswer++;
@@ -293,9 +299,13 @@ public class EducationApp extends Student {
                 String right = "";
                 String wrong = "";
                 String nameX = "";
+                int oldRightcount = Integer.parseInt(students.get(indexofStudent).getRightAnswers());
+                int oldWrongcount = Integer.parseInt(students.get(indexofStudent).getWrongAnswers());
+                rightAnswerCount = Integer.toString(answerCount + oldRightcount);
+                wrongAnswerCount = Integer.toString(wrongAnswer + oldWrongcount);
                 students.get(indexofStudent).setRightAnswers(rightAnswerCount);
                 students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
-                System.out.println(students.get(indexofStudent).getRightAnswers());
+
                 try {
                     /*
                      * This writes into the Students.txt file and updates the right and wrong numbers
@@ -320,6 +330,11 @@ public class EducationApp extends Student {
                      */
                     e.printStackTrace();
                 }
+                System.out.println("This is the total number of correct anser you got this round: " + answerCount);
+                System.out.println("This is the total number of worng answer you got this round: " + wrongAnswer);
+                System.out.println();
+                System.out.println("This the the total right answers: " + students.get(indexofStudent).getRightAnswers());
+                System.out.println("This the the total wrong answers: " + students.get(indexofStudent).getWrongAnswers());
             } else if (yesNo.equals("4")) {
                 test.insertMathQuestions(divQuestions, divAnswers, fileNameDiv);
                 /*
@@ -333,7 +348,7 @@ public class EducationApp extends Student {
                  */
                 mT.start();
                 System.out.println("You now have 1 min to answer math questions");
-                int max = addQuestions.size();
+                int max = divQuestions.size();
 
                 while (mT.check()) {
                     /*
@@ -345,10 +360,10 @@ public class EducationApp extends Student {
                      ? the student class)
                      */
                     int randNum = (int) (Math.random() * max);
-                    System.out.println(addQuestions.get(randNum));
+                    System.out.println(divQuestions.get(randNum));
                     if (mT.check()) {
                         yesNo = uI.nextLine();
-                        if (yesNo.equals(addAnswer.get(randNum))) {
+                        if (yesNo.equals(divAnswers.get(randNum))) {
                             answerCount++;
                         } else {
                             wrongAnswer++;
@@ -362,12 +377,12 @@ public class EducationApp extends Student {
                 String right = "";
                 String wrong = "";
                 String nameX = "";
+                int oldRightcount = Integer.parseInt(students.get(indexofStudent).getRightAnswers());
+                int oldWrongcount = Integer.parseInt(students.get(indexofStudent).getWrongAnswers());
+                rightAnswerCount = Integer.toString(answerCount + oldRightcount);
+                wrongAnswerCount = Integer.toString(wrongAnswer + oldWrongcount);
                 students.get(indexofStudent).setRightAnswers(rightAnswerCount);
                 students.get(indexofStudent).setWrongAnswers(wrongAnswerCount);
-                System.out.println(students.get(indexofStudent).getRightAnswers());
-                /*
-                 ? You need to add a print statement that updates the user on there score and and such
-                 */
                 try {
                     /*
                      * This writes into the Students.txt file and updates the right and wrong numbers
@@ -392,6 +407,11 @@ public class EducationApp extends Student {
                      */
                     e.printStackTrace();
                 }
+                System.out.println("This is the total number of correct anser you got this round: " + answerCount);
+                System.out.println("This is the total number of worng answer you got this round: " + wrongAnswer);
+                System.out.println();
+                System.out.println("This the the total right answers: " + students.get(indexofStudent).getRightAnswers());
+                System.out.println("This the the total wrong answers: " + students.get(indexofStudent).getWrongAnswers());
             }
             /*
              * Pleas eneter the the code for the program here
