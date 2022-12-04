@@ -3,6 +3,7 @@ import java.io.*;
 
 /*
  ! Go through the program and fix any bugs
+ *helloi
 
  */
 public class EducationApp extends Student {
