@@ -47,7 +47,6 @@ public class EducationApp extends Student {
          ! make sure to make a check to see if the user exist in the student array list
          */
         test.insertStudent(students, fileNameStudents);
-        System.out.println(students.get(1).getRightAnswers());
         System.out.println("Are you a new user?(yes or no)");
         yesNo = uI.nextLine();
         while (yesNo.equals("yes")) {
